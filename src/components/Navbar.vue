@@ -29,6 +29,7 @@ nav ul {
 nav li {
   flex: 1;
   padding: 1em;
+  border-top: 1px solid #999;
 }
 
 nav li:not(:last-child) {
