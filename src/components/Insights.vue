@@ -40,13 +40,11 @@ export default {
   data() {
     return {
       circle: PI * 200,
-      date: new Date()
-        .toLocaleDateString('en-US', {
-          weekday: 'short',
-          month: 'short',
-          day: 'numeric'
-        })
-        .replace(',', '\n'),
+      date: new Date().toLocaleDateString('en-US', {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric'
+      }),
       data: [
         { name: 'sleep', color: 'hsl(220, 80%, 60%)', t: 7 },
         { name: 'eat', color: 'hsl(60, 80%, 60%)', t: 0.5 },
