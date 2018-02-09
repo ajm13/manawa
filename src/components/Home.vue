@@ -1,9 +1,11 @@
 <template>
   <div id="home">
-    <div class="date">{{ date }}</div>
-    <div class="tracking">
-      <div v-for="cat in categories" :key="cat.name">
-        <div class="circle" @click="cat.time++">
+    <div id="date">{{ date }}</div>
+    <div id="tracking">
+      <div v-for="cat in categories"
+        :key="cat.name">
+        <div class="circle"
+          @click="cat.time++">
           {{ cat.time | time }}
         </div>
         <div class="cat">
@@ -54,31 +56,28 @@ export default {
 }
 </script>
 
-<style>
-.date {
-  font-size: 1.5rem;
-}
+<style lang="sass">
+#home
+  #date
+    font-size: 1.5rem
 
-.tracking {
-  margin: 1em auto;
-  max-width: 400px;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-around;
-}
+  #tracking
+    margin: 1em auto
+    max-width: 400px
+    display: flex
+    flex-flow: row wrap
+    justify-content: space-around
 
-.tracking > div {
-  margin-top: 1em;
-  flex: 33%;
-  text-align: center;
-}
+    > div
+      margin-top: 1em
+      flex: 33%
+      text-align: center
 
-.tracking .circle {
-  display: inline-block;
-  width: 5em;
-  height: 5em;
-  line-height: 5em;
-  border: 2px solid #999;
-  border-radius: 50%;
-}
+    .circle
+      display: inline-block
+      width: 5em
+      height: 5em
+      line-height: 5em
+      border: 2px solid #999
+      border-radius: 50%
 </style>

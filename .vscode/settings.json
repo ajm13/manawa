@@ -7,7 +7,8 @@
   "vetur.format.defaultFormatterOptions": {
     "js-beautify-html": {
       "max_preserve_newlines": 2,
-      "preserve_newlines": true
+      "preserve_newlines": true,
+      "wrap_attributes": "force" //"force-expand-multiline"
     }
   }
 }

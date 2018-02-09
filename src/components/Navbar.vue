@@ -1,9 +1,12 @@
 <template>
   <nav>
     <ul>
-      <router-link tag="li" to="/">Home</router-link>
-      <router-link tag="li" to="/insights">Insights</router-link>
-      <router-link tag="li" to="/timeline">Timeline</router-link>
+      <router-link tag="li"
+        to="/">Home</router-link>
+      <router-link tag="li"
+        to="/insights">Insights</router-link>
+      <router-link tag="li"
+        to="/timeline">Timeline</router-link>
     </ul>
   </nav>
 </template>
@@ -12,27 +15,27 @@
 export default {}
 </script>
 
-<style>
-nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
+<style lang="sass">
+nav
+  position: fixed
+  bottom: 0
+  width: 100%
+  background-color: #fff
 
-nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-}
+  ul
+    list-style: none
+    margin: 0
+    padding: 0
+    display: flex
 
-nav li {
-  flex: 1;
-  padding: 1em;
-  border-top: 1px solid #999;
-}
+  li
+    flex: 1
+    padding: 1em
+    border-top: 1px solid #999
 
-nav li:not(:last-child) {
-  border-right: 1px solid #999;
-}
+    &:not(:last-child)
+      border-right: 1px solid #999
+
+    &.router-link-exact-active
+      background-color: #ddd
 </style>

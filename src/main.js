@@ -3,6 +3,13 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import filters from './js/filters'
+
+for (var filter in filters) {
+  if (filters.hasOwnProperty(filter)) {
+    Vue.filter(filter, filters[filter])
+  }
+}
 
 Vue.config.productionTip = false
 
