@@ -4,8 +4,8 @@
 
 ## Authors
 
-Alex McNerney
-Gus Umbelino
+Alex McNerney  
+Gus Umbelino  
 Sarah Woah
 
 ## Build Setup
