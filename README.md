@@ -2,9 +2,15 @@
 
 > A Vue.js project
 
+## Authors
+
+Alex McNerney
+Gus Umbelino
+Sarah Woah
+
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 npm install
 
