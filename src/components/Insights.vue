@@ -20,7 +20,7 @@
         :stroke="time.color"></path>
     </svg>
     <div id="recommendation">
-      You have 3 hours of unaccounted time.<br>Go outside or something, idk.
+      Hi User, you have 3 hours of unaccounted time.<br>You could've used that time to study for your midterm next week!
     </div>
     <div id="legend">
       <div v-for="d in data"

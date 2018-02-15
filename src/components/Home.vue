@@ -9,7 +9,11 @@
           inactive: active.category && active.category !== category
         }">
         <div class="circle"
-          @click="tapTimer(category)">
+          @click="tapTimer(category)"
+          :style="{
+            borderColor: colors[category],
+            backgroundColor: active.category === category ? colors[category] : '#fff'
+          }">
           {{ timers[category] + ((active.category === category) ? currentTime : 0) | time }}
         </div>
         <div class="cat">
@@ -33,7 +37,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['active', 'categories', 'timers'])
+    ...mapGetters(['active', 'categories', 'colors', 'timers'])
   },
 
   methods: {
@@ -91,7 +95,7 @@ export default {
         animation: pulse 1.618s alternate ease-in-out infinite
 
         .circle
-          background-color: #999
+          // background-color: #999
           color: #fff
 
       &.inactive
