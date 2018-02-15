@@ -1,15 +1,19 @@
 <template>
   <div id="insights">
     <ul id="timespan">
-      <li class="active">day</li>
+      <li v-for="range of ranges"
+        :key="range"
+        :class="{ active: currentRange === range }"
+        @click="selectRange(range)">{{ range }}</li>
+      <!-- <li>day</li>
       <li>week</li>
       <li>month</li>
-      <li>year</li>
+      <li>year</li> -->
     </ul>
     <div class="donutBox">
       <div id="prev"
         class="chevron"
-        @click="log('prev')">
+        @click="moveRange(-1)">
         <div>&lt;</div>
       </div>
       <svg class='donut'
@@ -27,7 +31,7 @@
       </svg>
       <div id="next"
         class="chevron"
-        @click="log('next')">
+        @click="moveRange(1)">
         <div>&gt;</div>
       </div>
     </div>
@@ -46,15 +50,21 @@
 </template>
 
 <script>
-let { sin, cos, PI } = Math
-let tau = 2 * PI
+import { mapActions } from 'vuex'
+
+const { sin, cos, PI } = Math
+const tau = 2 * PI
+const DAY = 8.64e7
 
 export default {
   data() {
     return {
-      circle: PI * 200,
+      currentRange: 'day',
+      startDate: new Date(new Date().toDateString()),
+      numDays: 1,
+      ranges: ['day', 'week', 'month', 'year'],
       circleText: '',
-      date: new Date().toLocaleDateString('en-US', {
+      rangeText: new Date().toLocaleDateString('en-US', {
         weekday: 'short',
         month: 'short',
         day: 'numeric'
@@ -90,6 +100,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['getTimes']),
     arc(x, y, r, sa, a) {
       let sx = x + r * cos(sa)
       let sy = y + r * sin(sa)
@@ -101,15 +112,54 @@ export default {
     log(a) {
       console.log(a)
     },
+    moveRange(dir) {
+      this.startDate = new Date(+this.startDate + dir * this.numDays * DAY)
+      this.selectRange(this.currentRange)
+    },
+    selectRange(range) {
+      let date = this.startDate
+      let y = date.getFullYear()
+      let m = date.getMonth()
+      let d = date.getDate()
+      let day = date.getDay()
+      let start, end
+
+      this.currentRange = range
+
+      switch (range) {
+        case 'day':
+          this.numDays = 1
+          break
+        case 'week':
+          this.startDate = new Date(y, m, d - day)
+          this.numDays = 7
+          break
+        case 'month':
+          start = new Date(y, m)
+          end = new Date(y, m + 1)
+          this.startDate = new Date(y, m)
+          this.numDays = (end - start) / DAY
+          break
+        case 'year':
+          start = new Date(y, 0)
+          end = new Date(y + 1, 0)
+          this.startDate = new Date(y, 0)
+          this.numDays = (end - start) / DAY
+          break
+      }
+
+      this.rangeText = this.startDate.toDateString()
+      this.circleText = this.rangeText
+    },
     selectCategory(cat) {
       this.circleText = cat
     },
     unsetCategory() {
-      this.circleText = this.date
+      this.circleText = this.rangeText
     }
   },
   mounted() {
-    this.circleText = this.date
+    this.circleText = this.rangeText
   }
 }
 </script>
@@ -132,7 +182,7 @@ export default {
 
       &.active
         background-color: #ddd
-  
+
   .donutBox
     position: relative
 
@@ -150,7 +200,7 @@ export default {
 
     &#prev
       left: 0
-    
+
     &#next
       right: 0
 

@@ -3,11 +3,12 @@ import Vuex from 'vuex'
 import data from './data.json'
 
 const STORAGE_KEY = 'manawa'
+const DAY = 24 * 60 * 60 * 1000
 
 Vue.use(Vuex)
 
 // REMOVE FOR PRODUCTION
-localStorage.removeItem(STORAGE_KEY)
+// localStorage.removeItem(STORAGE_KEY)
 
 // get data from localStorage
 let saved = window.localStorage.getItem(STORAGE_KEY)
@@ -28,6 +29,27 @@ const actions = {
     let newTimer = state.active.category !== category
     if (state.active.category) commit('STOP_ACTIVE')
     if (newTimer) commit('START_ACTIVE', category)
+  },
+  getTimes({ state }, { start, days }) {
+    let d = new Date(start)
+    let end = new Date(d.valueOf() + days * DAY)
+    let times = {}
+    let total = 0
+
+    while (d < end) {
+      let events = state.timeline[d.toDateString()] || []
+      for (let event of events) {
+        if (!times[event.category]) times[event.category] = 0
+        let time = event.end - event.start
+        times[event.category] += time
+        total += time
+      }
+      d += DAY
+    }
+
+    times['nothing'] = days * DAY - total
+    total = days * DAY
+    return { total, times }
   }
 }
 
