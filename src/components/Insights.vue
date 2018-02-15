@@ -6,15 +6,16 @@
       <li>month</li>
       <li>year</li>
     </ul>
-    <svg class='donut'>
+    <svg class='donut'
+      @click="unsetCategory">
       <text id="date"
         x="50%"
         y="50%"
         text-anchor="middle"
-        alignment-baseline="central">{{ date }}</text>
+        alignment-baseline="central">{{ circleText }}</text>
       <path v-for="time in times"
         :key="time.color"
-        @click="log(time)"
+        @click.stop="selectCategory(time.category)"
         :d="arc(150, 150, 100, time.o, time.a)"
         :stroke="time.color"></path>
     </svg>
@@ -40,6 +41,7 @@ export default {
   data() {
     return {
       circle: PI * 200,
+      circleText: '',
       date: new Date().toLocaleDateString('en-US', {
         weekday: 'short',
         month: 'short',
@@ -71,7 +73,7 @@ export default {
         // adds spacing
         a -= 0.025
         o += 0.0125
-        return { color: t.color, a, o }
+        return { category: t.name, color: t.color, a, o }
       })
     }
   },
@@ -86,7 +88,16 @@ export default {
     },
     log(a) {
       console.log(a)
+    },
+    selectCategory(cat) {
+      this.circleText = cat
+    },
+    unsetCategory() {
+      this.circleText = this.date
     }
+  },
+  mounted() {
+    this.circleText = this.date
   }
 }
 </script>
