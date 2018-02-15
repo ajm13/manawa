@@ -1,10 +1,15 @@
 <template>
   <div id="login">
-    <input v-model="user"
-      type="text">
-    <input v-model="pass"
-      type="password">
-    <button @click="login">login</button>
+    <form id="inputs"
+      action="javascript:void(0);">
+      <input v-model="user"
+        type="text"
+        placeholder="username"><br>
+      <input v-model="pass"
+        type="password"
+        placeholder="password"><br>
+      <button @click="login">login</button>
+    </form>
   </div>
 </template>
 
@@ -20,13 +25,21 @@ export default {
   },
   methods: {
     login() {
-      alert('Welcome ' + this.user)
+      // alert('Welcome ' + this.user)
       auth.login({}, '/')
     }
   }
 }
 </script>
 
-<style>
+<style lang="sass">
+#login
+  display: flex
+  align-items: center
+  justify-content: center
 
+  #inputs
+    input, button
+      width: 100%
+      margin-bottom: 0.5em
 </style>

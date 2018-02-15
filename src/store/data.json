@@ -1,0 +1,22 @@
+{
+  "active": {
+    "category": "",
+    "start": 0
+  },
+  "categories": [
+    "sleep",
+    "eat",
+    "work",
+    "class",
+    "study",
+    "exercise",
+    "travel",
+    "extracurriculars",
+    "fun"
+  ],
+  "timers": {},
+  "goals": {
+    "sleep": [8, 8, 8, 8, 8, 8, 8]
+  },
+  "timeline": {}
+}
