@@ -6,19 +6,31 @@
       <li>month</li>
       <li>year</li>
     </ul>
-    <svg class='donut'
-      @click="unsetCategory">
-      <text id="date"
-        x="50%"
-        y="50%"
-        text-anchor="middle"
-        alignment-baseline="central">{{ circleText }}</text>
-      <path v-for="time in times"
-        :key="time.color"
-        @click.stop="selectCategory(time.category)"
-        :d="arc(150, 150, 100, time.o, time.a)"
-        :stroke="time.color"></path>
-    </svg>
+    <div class="donutBox">
+      <div id="prev"
+        class="chevron"
+        @click="log('prev')">
+        <div>&lt;</div>
+      </div>
+      <svg class='donut'
+        @click="unsetCategory">
+        <text id="date"
+          x="50%"
+          y="50%"
+          text-anchor="middle"
+          alignment-baseline="central">{{ circleText }}</text>
+        <path v-for="time in times"
+          :key="time.color"
+          @click.stop="selectCategory(time.category)"
+          :d="arc(150, 150, 100, time.o, time.a)"
+          :stroke="time.color"></path>
+      </svg>
+      <div id="next"
+        class="chevron"
+        @click="log('next')">
+        <div>&gt;</div>
+      </div>
+    </div>
     <div id="recommendation">
       Hi User, you have 3 hours of unaccounted time.<br>You could've used that time to study for your midterm next week!
     </div>
@@ -104,6 +116,8 @@ export default {
 
 <style lang="sass">
 #insights
+  position: relative
+
   #timespan
     list-style: none
     margin: 0
@@ -118,6 +132,27 @@ export default {
 
       &.active
         background-color: #ddd
+  
+  .donutBox
+    position: relative
+
+  .chevron
+    top: 0
+    height: 300px
+    width: 50px
+    position: absolute
+
+    > div
+      position: absolute
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%) scaleY(3)
+
+    &#prev
+      left: 0
+    
+    &#next
+      right: 0
 
   .donut
     width: 300px
