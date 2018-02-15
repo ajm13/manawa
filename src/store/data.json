@@ -14,6 +14,17 @@
     "extracurriculars",
     "fun"
   ],
+  "colors": {
+    "sleep": "hsl(220, 80%, 60%)",
+    "eat": "hsl(200, 80%, 60%)",
+    "work": "hsl(90, 80%, 60%)",
+    "class": "hsl(30, 80%, 60%)",
+    "study": "hsl(270, 80%, 60%)",
+    "exercise": "hsl(120, 80%, 60%)",
+    "travel": "hsl(180, 80%, 60%)",
+    "extracurriculars": "hsl(160, 80%, 60%)",
+    "fun": "hsl(300, 80%, 60%)"
+  },
   "timers": {},
   "goals": {
     "sleep": [8, 8, 8, 8, 8, 8, 8]

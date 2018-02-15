@@ -19,6 +19,7 @@ const state = saved
 const getters = {
   active: state => state.active,
   categories: state => state.categories,
+  colors: state => state.colors,
   timers: state => state.timers
 }
 
