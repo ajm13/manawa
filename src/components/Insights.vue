@@ -13,7 +13,7 @@
     <div class="donutBox">
       <div id="prev"
         class="chevron"
-        @click="moveRange(-1)">
+        @click="moveStartDate(-1)">
         <div>&lt;</div>
       </div>
       <svg class='donut'
@@ -31,7 +31,7 @@
       </svg>
       <div id="next"
         class="chevron"
-        @click="moveRange(1)">
+        @click="moveStartDate(1)">
         <div>&gt;</div>
       </div>
     </div>
@@ -39,18 +39,18 @@
       Hi User, you have 3 hours of unaccounted time.<br>You could've used that time to study for your midterm next week!
     </div>
     <div id="legend">
-      <div v-for="d in data"
-        :key="d.name">
+      <div v-for="d in times"
+        :key="d.category">
         <div class="blip"
-          :style="{backgroundColor: d.color}"></div>
-        {{d.name}}
+          :style="{ backgroundColor: d.color }"></div>
+        {{ d.category }}
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 
 const { sin, cos, PI } = Math
 const tau = 2 * PI
@@ -68,39 +68,36 @@ export default {
         weekday: 'short',
         month: 'short',
         day: 'numeric'
-      }),
-      data: [
-        { name: 'sleep', color: 'hsl(220, 80%, 60%)', t: 7 },
-        { name: 'eat', color: 'hsl(60, 80%, 60%)', t: 0.5 },
-        { name: 'travel', color: 'hsl(90, 80%, 60%)', t: 0.5 },
-        { name: 'work', color: 'hsl(30, 80%, 60%)', t: 8 },
-        { name: 'fun', color: 'hsl(270, 80%, 60%)', t: 6 },
-        { name: 'nothing', color: 'hsl(0, 80%, 60%)', t: 2 }
-      ]
+      })
     }
   },
   computed: {
-    total() {
-      return this.data.reduce((acc, x) => acc + x.t, 0)
-    },
+    ...mapGetters(['colors', 'getTimes']),
     times() {
-      let offset = -PI / 2
-      let total = this.total
+      let data = this.getTimes({
+        start: this.startDate,
+        days: this.numDays
+      })
 
-      return this.data.map(t => {
-        let a = t.t / total * tau
+      let offset = -PI / 2
+      let total = data.total
+
+      return data.times.map(t => {
+        let { category, time } = t
+
+        let color = this.colors[category]
+        let a = time / total * tau
         let o = offset
         offset += a
 
         // adds spacing
         a -= 0.025
         o += 0.0125
-        return { category: t.name, color: t.color, a, o }
+        return { category, color, a, o }
       })
     }
   },
   methods: {
-    ...mapActions(['getTimes']),
     arc(x, y, r, sa, a) {
       let sx = x + r * cos(sa)
       let sy = y + r * sin(sa)
@@ -112,7 +109,7 @@ export default {
     log(a) {
       console.log(a)
     },
-    moveRange(dir) {
+    moveStartDate(dir) {
       this.startDate = new Date(+this.startDate + dir * this.numDays * DAY)
       this.selectRange(this.currentRange)
     },

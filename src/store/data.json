@@ -23,7 +23,8 @@
     "exercise": "hsl(120, 80%, 60%)",
     "travel": "hsl(180, 80%, 60%)",
     "extracurriculars": "hsl(160, 80%, 60%)",
-    "fun": "hsl(300, 80%, 60%)"
+    "fun": "hsl(300, 80%, 60%)",
+    "nothing": "hsl(0, 80%, 60%)"
   },
   "timers": {},
   "goals": {
