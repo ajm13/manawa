@@ -9,7 +9,7 @@ const DAY = 24 * 60 * 60 * 1000
 Vue.use(Vuex)
 
 // REMOVE FOR PRODUCTION
-localStorage.removeItem(STORAGE_KEY)
+// localStorage.removeItem(STORAGE_KEY)
 
 // get data from localStorage
 let saved = window.localStorage.getItem(STORAGE_KEY)

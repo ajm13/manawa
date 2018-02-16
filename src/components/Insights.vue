@@ -5,10 +5,6 @@
         :key="range"
         :class="{ active: currentRange === range }"
         @click="selectRange(range)">{{ range }}</li>
-      <!-- <li>day</li>
-      <li>week</li>
-      <li>month</li>
-      <li>year</li> -->
     </ul>
     <div class="donutBox">
       <div id="prev"
@@ -17,7 +13,7 @@
         <div>&lt;</div>
       </div>
       <svg class='donut'
-        @click="unsetCategory">
+        @click="deselectCategory">
         <text id="date"
           x="50%"
           y="50%"
@@ -25,7 +21,7 @@
           alignment-baseline="central">{{ circleText }}</text>
         <path v-for="time in times"
           :key="time.color"
-          @click.stop="selectCategory(time.category)"
+          @click.stop="selectCategory(time)"
           :d="arc(150, 150, 100, time.o, time.a)"
           :stroke="time.color"></path>
       </svg>
@@ -36,7 +32,7 @@
       </div>
     </div>
     <div id="recommendation">
-      Hi User, you have 3 hours of unaccounted time.<br>You could've used that time to study for your midterm next week!
+      Hi Grader, you have {{ nothing }} hours of unaccounted time.<br>You could've used that time to get your students' grades out faster!
     </div>
     <div id="legend">
       <div v-for="d in times"
@@ -73,6 +69,11 @@ export default {
   },
   computed: {
     ...mapGetters(['colors', 'getTimes']),
+    nothing() {
+      let nothing = this.times[this.times.length - 1]
+      if (nothing.category !== 'nothing') return 0
+      else return (nothing.time / 3.6e6).toFixed(1)
+    },
     times() {
       let data = this.getTimes({
         start: this.startDate,
@@ -93,7 +94,7 @@ export default {
         // adds spacing
         a -= 0.025
         o += 0.0125
-        return { category, color, a, o }
+        return { category, color, time, a, o }
       })
     }
   },
@@ -148,10 +149,10 @@ export default {
       this.rangeText = this.startDate.toDateString()
       this.circleText = this.rangeText
     },
-    selectCategory(cat) {
-      this.circleText = cat
+    selectCategory(time) {
+      this.circleText = time.category
     },
-    unsetCategory() {
+    deselectCategory() {
       this.circleText = this.rangeText
     }
   },
