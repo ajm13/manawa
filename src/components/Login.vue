@@ -2,13 +2,14 @@
   <div id="login">
     <form id="inputs"
       action="javascript:void(0);">
-      <input v-model="user"
+      <input v-model="username"
         type="text"
         placeholder="username"><br>
-      <input v-model="pass"
+      <input v-model="password"
         type="password"
         placeholder="password"><br>
-      <button @click="login">login</button>
+      <button :disabled="!username || !password"
+        @click="login">login</button>
     </form>
   </div>
 </template>
@@ -19,14 +20,14 @@ import auth from '../auth'
 export default {
   data() {
     return {
-      user: '',
-      pass: ''
+      username: '',
+      password: ''
     }
   },
   methods: {
     login() {
-      // alert('Welcome ' + this.user)
-      auth.login({}, '/')
+      let { username, password } = this
+      auth.login({ username, password }, '/')
     }
   }
 }
@@ -34,6 +35,7 @@ export default {
 
 <style lang="sass">
 #login
+  margin-top: 10em
   display: flex
   align-items: center
   justify-content: center

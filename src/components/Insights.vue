@@ -32,7 +32,7 @@
       </div>
     </div>
     <div id="recommendation">
-      Hi Grader, you have {{ nothing }} hours of unaccounted time.<br>You could've used that time to get your students' grades out faster!
+      Hi {{ username }}, you have {{ nothing }} hours of unaccounted time.<br>You could've used that time to get your students' grades out faster!
     </div>
     <div id="legend">
       <div v-for="d in times"
@@ -47,6 +47,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import auth from '@/auth'
 
 const { sin, cos, PI } = Math
 const tau = 2 * PI
@@ -55,6 +56,7 @@ const DAY = 8.64e7
 export default {
   data() {
     return {
+      username: auth.user.username,
       currentRange: 'day',
       startDate: new Date(new Date().toDateString()),
       numDays: 1,
