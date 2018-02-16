@@ -12,8 +12,8 @@ let categories = [
   'extracurriculars'
 ]
 
-let d = new Date(2017, 0)
-let end = new Date(2020, 0)
+let d = new Date(2014, 0)
+let end = new Date(new Date().toDateString())
 
 let timeline = {}
 

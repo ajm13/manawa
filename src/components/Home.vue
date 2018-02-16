@@ -60,6 +60,7 @@ export default {
     }
   },
   mounted() {
+    this.updateActive()
     this.updateInterval = setInterval(this.updateActive, 100)
   },
   destroyed() {
