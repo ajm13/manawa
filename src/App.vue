@@ -59,4 +59,7 @@ input, button
   background-color: transparent
   border: 1px solid #999
   border-radius: 0
+
+ul, li
+  list-style: none
 </style>

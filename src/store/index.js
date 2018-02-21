@@ -26,6 +26,23 @@ const getters = {
   categories: state => state.categories,
   colors: state => state.colors,
   timers: state => state.timers,
+  getTimelineWeek: state => end => {
+    end = new Date(end)
+    let d = new Date(+end - 6 * DAY)
+    let chunk = []
+
+    while (d < end) {
+      let date = d.toDateString()
+      chunk.push({
+        date,
+        events: state.timeline[date] || []
+      })
+
+      d = new Date(+d + DAY)
+    }
+
+    return chunk
+  },
   getTimes: state => ({ start, days }) => {
     let d = new Date(start)
     let end = new Date(+d + days * DAY)
@@ -59,6 +76,9 @@ const actions = {
     let newTimer = state.active.category !== category
     if (state.active.category) commit('STOP_ACTIVE')
     if (newTimer) commit('START_ACTIVE', category)
+  },
+  cancelActive({ commit }) {
+    commit('CANCEL_ACTIVE')
   }
 }
 
@@ -86,6 +106,9 @@ const mutations = {
       end
     })
 
+    state.active.category = ''
+  },
+  CANCEL_ACTIVE(state) {
     state.active.category = ''
   }
 }

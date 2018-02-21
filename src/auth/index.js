@@ -3,7 +3,7 @@ import router from '../router'
 export default {
   user: {
     username: '',
-    authenticated: false
+    authenticated: true
   },
 
   login(data, redirect) {
