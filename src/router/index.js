@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/Login'
-import Home from '@/components/Home'
+import Timers from '@/components/Timers'
 import Insights from '@/components/Insights'
 import Timeline from '@/components/Timeline'
 
@@ -25,8 +25,8 @@ let router = new Router({
     },
     {
       path: '/',
-      name: 'Home',
-      component: Home
+      name: 'Timers',
+      component: Timers
     },
     {
       path: '/insights',

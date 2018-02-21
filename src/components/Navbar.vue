@@ -2,7 +2,7 @@
   <nav>
     <ul>
       <router-link tag="li"
-        to="/">Home</router-link>
+        to="/">Timers</router-link>
       <router-link tag="li"
         to="/insights">Insights</router-link>
       <router-link tag="li"

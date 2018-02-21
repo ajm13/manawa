@@ -1,6 +1,7 @@
 <template>
   <div id="home">
     <div id="date">{{ date }}</div>
+    <div id="tips">tap a timer to start logging time</div>
     <div id="tracking">
       <div v-for="category in categories"
         :key="category"
@@ -77,6 +78,9 @@ export default {
 #home
   #date
     font-size: 1.5rem
+
+  #tips
+    color: #888
 
   #tracking
     margin: 1em auto
