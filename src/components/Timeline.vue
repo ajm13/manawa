@@ -1,5 +1,6 @@
 <template>
   <div id="timeline">
+    <div @click="loadMore">load more</div>
     <ul>
       <li v-for="day of days"
         :key="day.date">
@@ -40,27 +41,24 @@ export default {
   },
 
   methods: {
-    handleScroll(e) {
-      let s = window.scrollY
-      if (s < 100) this.addMore()
-    },
-    addMore() {
+    loadMore() {
+      let h = document.getElementById('timeline').offsetHeight
+
       this.days.unshift(...this.getTimelineWeek(this.lastDate))
       this.lastDate = this.days[0].date
+
+      this.$nextTick(() => {
+        let nh = document.getElementById('timeline').offsetHeight
+        document.documentElement.scrollTop += nh - h
+      })
     }
   },
 
   mounted() {
     this.lastDate = new Date(+new Date(new Date().toDateString()) + 8.64e7)
-    this.addMore()
-    this.addMore()
+    this.loadMore()
+    this.loadMore()
     this.$nextTick(() => (document.documentElement.scrollTop = 1e9))
-    // while (document.body.offsetHeight < window.innerHeight) this.addMore()
-    document.addEventListener('scroll', this.handleScroll.bind(this))
-  },
-
-  destroyed() {
-    document.removeEventListener('scroll', this.handleScroll.bind(this))
   }
 }
 </script>
