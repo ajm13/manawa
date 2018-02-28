@@ -1,7 +1,5 @@
 <template>
   <div id="home">
-    <div id="logout"
-      @click="auth.logout()">log out</div>
     <div id="date">{{ date }}</div>
     <div id="tips">tap a timer to start logging time</div>
     <div id="tracking">
@@ -98,16 +96,6 @@ export default {
     transform: scale(1.1)
 
 #home
-  #logout
-    position: absolute
-    top: 0
-    left: 0
-    padding: 0.5em
-    color: #ccc
-
-    &:hover
-      color: #888
-
   #date
     font-size: 1.5rem
 

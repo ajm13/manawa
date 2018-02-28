@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+    <div v-if="user.authenticated"
+      id="logout"
+      @click="auth.logout()">log out</div>
     <router-view/>
     <navbar v-if="user.authenticated" />
   </div>
@@ -14,6 +17,7 @@ export default {
   name: 'App',
   data() {
     return {
+      auth,
       user: auth.user
     }
   },
@@ -51,6 +55,16 @@ export default {
   -ms-user-select: none
   user-select: none
   padding-bottom: 4em
+
+  #logout
+      position: absolute
+      top: 0
+      left: 0
+      padding: 0.5em
+      color: #ccc
+
+      &:hover
+        color: #888
 
 input, button
   font: inherit
