@@ -14,17 +14,14 @@
       </div>
       <svg class='donut'
         @click="deselectCategory">
-        <text id="date"
-          x="50%"
-          y="50%"
-          text-anchor="middle"
-          alignment-baseline="central">{{ circleText }}</text>
         <path v-for="time in times"
           :key="time.color"
           @click.stop="selectCategory(time)"
           :d="arc(150, 150, 100, time.o, time.a)"
           :stroke="time.color"></path>
       </svg>
+      <div id="centerText"
+        v-html="circleText"></div>
       <div id="next"
         class="chevron"
         @click="moveStartDate(1)">
@@ -36,7 +33,8 @@
     </div>
     <div id="legend">
       <div v-for="d in times"
-        :key="d.category">
+        :key="d.category"
+        @click="selectCategory(d)">
         <div class="blip"
           :style="{ backgroundColor: d.color }"></div>
         {{ d.category }}
@@ -62,11 +60,7 @@ export default {
       numDays: 1,
       ranges: ['day', 'week', 'month', 'year'],
       circleText: '',
-      rangeText: new Date().toLocaleDateString('en-US', {
-        weekday: 'short',
-        month: 'short',
-        day: 'numeric'
-      })
+      rangeText: ''
     }
   },
   computed: {
@@ -148,17 +142,37 @@ export default {
           break
       }
 
-      this.rangeText = this.startDate.toDateString()
+      this.setRangeText()
       this.circleText = this.rangeText
     },
+    setRangeText() {
+      let [day, month, date, year] = this.startDate.toDateString().split(' ')
+
+      switch (this.currentRange) {
+        case 'day':
+          this.rangeText = `${day}<br>${month} ${date}`
+          break
+        case 'week':
+          this.rangeText = `week of<br>${month} ${date}`
+          break
+        case 'month':
+          this.rangeText = month
+          break
+        case 'year':
+          this.rangeText = year
+          break
+      }
+    },
     selectCategory(time) {
-      this.circleText = time.category
+      let t = this.$options.filters.time(time.time / 60)
+      this.circleText = `${time.category}<br>${t}`
     },
     deselectCategory() {
       this.circleText = this.rangeText
     }
   },
   mounted() {
+    this.setRangeText()
     this.circleText = this.rangeText
   }
 }
@@ -185,6 +199,13 @@ export default {
 
   .donutBox
     position: relative
+
+  #centerText
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    font-size: 1.3em
 
   .chevron
     top: 0
