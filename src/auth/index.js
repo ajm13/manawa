@@ -10,5 +10,10 @@ export default {
     this.user.username = data.username
     this.user.authenticated = true
     router.push(redirect)
+  },
+
+  logout() {
+    this.user.authenticated = false
+    router.push('/login')
   }
 }
