@@ -24,6 +24,14 @@
         </div>
       </div>
     </div>
+    <div class="row center">
+      <div id="cancel"
+        v-show="active.category"
+        @click="cancelTimer"
+        :class="{ confirm }">
+        {{ !confirm ? 'cancel timer' : 'tap again to confirm' }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -35,6 +43,7 @@ export default {
   data() {
     return {
       auth,
+      confirm: false,
       date: this.getDate(),
       currentTime: 0,
       updateInterval: 0
@@ -46,7 +55,16 @@ export default {
   },
 
   methods: {
-    ...mapActions(['toggleTimer']),
+    ...mapActions(['cancelActive', 'toggleTimer']),
+    cancelTimer() {
+      if (!this.confirm) {
+        this.confirm = true
+        setTimeout(() => (this.confirm = false), 2000)
+      } else {
+        this.cancelActive()
+        this.confirm = false
+      }
+    },
     getDate() {
       // returns date formatted like 'Thu, Feb 8'
       return new Date().toLocaleDateString('en-US', {
@@ -128,4 +146,18 @@ export default {
         border: 2px solid #999
         border-radius: 50%
         transition: all 300ms ease
+
+  #cancel
+    display: inline-block
+    padding: 0.5em 1em
+    margin: 0 auto
+    border: 2px solid hsl(0, 80%, 60%)
+    background: hsl(0, 80%, 60%)
+    color: #fff
+    border-radius: 1em
+    transition: all 300ms ease
+
+    &.confirm
+      background: #fff
+      color: hsl(0, 80%, 60%)
 </style>
