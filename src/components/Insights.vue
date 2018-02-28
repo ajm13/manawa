@@ -29,7 +29,7 @@
       </div>
     </div>
     <div id="recommendation">
-      Hi {{ username }}, you have {{ nothing }} hours of unaccounted time.<br>You could've used that time to get your students' grades out faster!
+      Hi {{ username }}, you have {{ nothing }} hours of unaccounted time.<br>You could've used that time to study for your midterms!
     </div>
     <div id="legend">
       <div v-for="d in times"
