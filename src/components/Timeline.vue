@@ -18,6 +18,7 @@
               :style="{
                 borderColor: colors[event.category]
               }">{{ event.category }}</div>
+            <div class="time">{{ (event.end - event.start) / 60 | time }}</div>
           </li>
         </ul>
       </li>
@@ -87,4 +88,8 @@ export default {
       border-left: 2px solid #000
       margin-left: 0.8em
       padding-left: 0.8em
+
+    .time
+      position: absolute
+      right: 2em
 </style>
