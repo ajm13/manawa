@@ -15,10 +15,10 @@
             borderColor: colors[category],
             backgroundColor: active.category === category ? colors[category] : '#fff'
           }">
-          {{ timers[category] + ((active.category === category) ? currentTime : 0) | time }}
+          <h1>{{ category }}</h1>
         </div>
         <div class="cat">
-          {{ category }}
+          {{ timers[category] + ((active.category === category) ? currentTime : 0) | time }}
         </div>
 
       </div>
