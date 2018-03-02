@@ -1,6 +1,7 @@
 <template>
   <div id="timeline">
-    <div @click="loadMore">load more</div>
+    <div class="loadMore"
+      @click="loadMore">load more</div>
     <ul>
       <li v-for="day of days"
         :key="day.date">
@@ -66,6 +67,16 @@ export default {
 
 <style lang="sass">
 #timeline
+  .loadMore
+    display: inline-block
+    padding: 0.5em 1em
+    margin: 0 auto
+    border: 2px solid hsl(220, 80%, 60%)
+    // background: hsl(220, 80%, 60%)
+    color: hsl(220, 80%, 60%)
+    border-radius: 1em
+    transition: all 300ms ease
+
   .date
     text-align: left
     background-color: #eee
