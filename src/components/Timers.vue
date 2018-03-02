@@ -140,12 +140,14 @@ export default {
     padding: 0.5em 1em
     margin: 0 auto
     border: 2px solid hsl(0, 80%, 60%)
-    background: hsl(0, 80%, 60%)
-    color: #fff
+    background: #fff
+    color: hsl(0, 80%, 60%)
     border-radius: 1em
     transition: all 300ms ease
+    opacity: 0.7
 
     &.confirm
-      background: #fff
-      color: hsl(0, 80%, 60%)
+      background: hsl(0, 80%, 60%)
+      color: #fff
+      opacity: 1
 </style>
