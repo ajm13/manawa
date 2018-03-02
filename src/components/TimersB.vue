@@ -20,7 +20,6 @@
         <div class="cat">
           {{ timers[category] + ((active.category === category) ? currentTime : 0) | time }}
         </div>
-
       </div>
       <div class="row center">
         <div id="cancel"
