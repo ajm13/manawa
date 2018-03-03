@@ -1,14 +1,15 @@
 <template>
   <div id="login">
-    <div id="content">
+    <div id="logo">
       <img src="../assets/manawa-logo2.png">
-      <div id="welcome">
-        welcome to manawa
-      </div>
-      <div id="about">
-        a time-tracking app that will change your life
-      </div>
     </div>
+    <div id="welcome">
+      welcome to manawa
+    </div>
+    <div id="about">
+      a time-tracking app that will change your life
+    </div>
+    <br>
     <form id="inputs"
       action="javascript:void(0);">
       <input v-model="username"
@@ -44,35 +45,22 @@ export default {
 
 <style lang="sass">
 #login
-  margin-top: 20%
-  display: flex
-  align-items: center
-  justify-content: center
+  padding: 15% 15% 15% 15%
+  display: block
 
-  #content
-    align-items: center
-    justify-content: center
-
+  #logo
     img
-      top: 10%
-      width: 40%
-      max-width: 100%
-      max-height: 100%
+      max-width: 50%
+      max-height: 50%
       margin-bottom: 3%
 
-    #welcome
-      font-size: 1.5rem
-      top: 40%
+  #welcome
+    font-size: 1.5em
 
-    #about
-      color: #888
-      top: 45%
-      left: 20%
-      right: 20%
+  #about
+    color: #888
 
   #inputs
-    position: absolute
-    top: 55%
     input, button
       width: 100%
       margin-bottom: 0.5em
