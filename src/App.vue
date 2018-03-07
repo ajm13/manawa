@@ -11,6 +11,9 @@
 <script>
 import Navbar from './components/Navbar'
 import auth from '@/auth'
+import { mapActions } from 'vuex'
+
+const DAY = 8.64e7
 
 export default {
   components: { Navbar },
@@ -21,17 +24,20 @@ export default {
       user: auth.user
     }
   },
+
+  methods: mapActions(['checkDayReset']),
+
   mounted() {
     document.addEventListener('touchmove', e => {
       if (e.scale !== 1) e.preventDefault()
     })
 
-    let last = 0
-    document.addEventListener('touchend', e => {
-      let now = Date.now()
-      if (now - last <= 500) e.preventDefault()
-      last = now
+    document.addEventListener('visibilitychange', e => {
+      if (!document.hidden) this.checkDayReset()
     })
+
+    let tomorrow = new Date(new Date(+new Date() + DAY).toDateString())
+    setTimeout(() => this.checkDayReset(), tomorrow - new Date())
   }
 }
 </script>
@@ -42,6 +48,7 @@ export default {
   padding: 0
   box-sizing: border-box
   -webkit-tap-highlight-color: transparent
+  touch-action: manipulation
 
 #app
   font-family: 'Avenir', Helvetica, Arial, sans-serif

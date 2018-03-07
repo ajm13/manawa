@@ -13,9 +13,11 @@
         <div>&lt;</div>
       </div>
       <svg class='donut'
+        :class="{ active: selected !== null }"
         @click="deselectCategory">
         <path v-for="time in times"
           :key="time.color"
+          :class="{ active: selected == time }"
           @click.stop="selectCategory(time)"
           :d="arc(150, 150, 100, time.o, time.a)"
           :stroke="time.color"></path>
@@ -60,7 +62,8 @@ export default {
       numDays: 1,
       ranges: ['day', 'week', 'month', 'year'],
       circleText: '',
-      rangeText: ''
+      rangeText: '',
+      selected: null
     }
   },
   computed: {
@@ -147,16 +150,18 @@ export default {
     },
     setRangeText() {
       let [day, month, date, year] = this.startDate.toDateString().split(' ')
+      let end = new Date(+this.startDate + 6 * DAY)
+      let [, emonth, edate, eyear] = end.toDateString().split(' ')
 
       switch (this.currentRange) {
         case 'day':
-          this.rangeText = `${day}<br>${month} ${date}`
+          this.rangeText = `${day}<br>${month} ${date}<br>${year}`
           break
         case 'week':
-          this.rangeText = `week of<br>${month} ${date}`
+          this.rangeText = `${month} ${date}<br>to ${emonth} ${edate}<br>${eyear}`
           break
         case 'month':
-          this.rangeText = month
+          this.rangeText = `${month}<br>${year}`
           break
         case 'year':
           this.rangeText = year
@@ -165,9 +170,11 @@ export default {
     },
     selectCategory(time) {
       let t = this.$options.filters.time(time.time / 60)
+      this.selected = time
       this.circleText = `${time.category}<br>${t}`
     },
     deselectCategory() {
+      this.selected = null
       this.circleText = this.rangeText
     }
   },
@@ -236,10 +243,10 @@ export default {
       fill: none
       stroke-width: 50px
 
-    &:hover path
+    &.active path
       opacity: 0.5
 
-    path:hover
+    path.active
       opacity: 1
 
   #recommendation
