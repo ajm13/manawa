@@ -9,7 +9,12 @@ import store from './store'
 
 Vue.use(Analytics, {
   id: 'UA-115307274-1',
-  router
+  router,
+  commands: {
+    trackTimer(category = 'unknown') {
+      this.$ga.event('timerTapped', 'click', 'category', category)
+    }
+  }
 })
 
 for (var filter in filters) {
