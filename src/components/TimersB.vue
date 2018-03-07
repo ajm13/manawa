@@ -15,19 +15,19 @@
             borderColor: colors[category],
             backgroundColor: active.category === category ? colors[category] : '#fff'
           }">
-          <h1>{{ category }}</h1>
-        </div>
-        <div class="cat">
           {{ timers[category] + ((active.category === category) ? currentTime : 0) | time }}
         </div>
-      </div>
-      <div class="row center">
-        <div id="cancel"
-          v-show="active.category"
-          @click="cancelTimer"
-          :class="{ confirm }">
-          {{ !confirm ? 'cancel timer' : 'tap again to confirm' }}
+        <div class="cat">
+          {{ category }}
         </div>
+      </div>
+    </div>
+    <div class="row center">
+      <div id="cancel"
+        v-show="active.category"
+        @click="cancelTimer"
+        :class="{ confirm }">
+        {{ !confirm ? 'cancel timer' : 'tap again to confirm' }}
       </div>
     </div>
   </div>
@@ -120,6 +120,7 @@ export default {
         animation: pulse 1.618s alternate ease-in-out infinite
 
         .circle
+          // background-color: #999
           color: #fff
 
       &.inactive
@@ -127,11 +128,11 @@ export default {
 
       .circle
         display: inline-block
-        width: 20em
+        width: 5em
         height: 5em
         line-height: 5em
         border: 2px solid #999
-        border-radius: 1em
+        border-radius: 50%
         transition: all 300ms ease
 
   #cancel
@@ -139,14 +140,14 @@ export default {
     padding: 0.5em 1em
     margin: 0 auto
     border: 2px solid hsl(0, 80%, 60%)
-    background: #fff
-    color: hsl(0, 80%, 60%)
+    background: hsl(0, 80%, 60%)
+    color: #fff
+    opacity: 1
     border-radius: 1em
     transition: all 300ms ease
-    opacity: 0.7
 
     &.confirm
-      background: hsl(0, 80%, 60%)
-      color: #fff
+      background: #fff
+      color: hsl(0, 80%, 60%)
       opacity: 1
 </style>

@@ -10,7 +10,6 @@
           inactive: active.category && active.category !== category
         }">
         <div class="circle"
-          v-ga="$ga.commands.trackTimer.bind(this, category)"
           @click="tapTimer(category)"
           :style="{
             borderColor: colors[category],

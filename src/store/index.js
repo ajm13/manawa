@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import data from './data.json'
 import { timeline } from './timeline.json'
+import { analyticsMiddleware } from 'vue-analytics'
 
 const STORAGE_KEY = 'manawa'
 const DAY = 24 * 60 * 60 * 1000
@@ -74,16 +75,51 @@ const getters = {
 const actions = {
   toggleTimer({ state, commit }, category) {
     let newTimer = state.active.category !== category
-    if (state.active.category) commit('STOP_ACTIVE')
-    if (newTimer) commit('START_ACTIVE', category)
+    if (state.active.category) {
+      commit('STOP_ACTIVE', {
+        meta: {
+          analytics: [
+            [
+              'event',
+              'timer',
+              'stop ' + state.active.category,
+              'timer experiment',
+              1
+            ]
+          ]
+        }
+      })
+    }
+    if (newTimer) {
+      commit('START_ACTIVE', {
+        category,
+        meta: {
+          analytics: [
+            ['event', 'timer', 'start ' + category, 'timer experiment', 1]
+          ]
+        }
+      })
+    }
   },
-  cancelActive({ commit }) {
-    commit('CANCEL_ACTIVE')
+  cancelActive({ state, commit }) {
+    commit('CANCEL_ACTIVE', {
+      meta: {
+        analytics: [
+          [
+            'event',
+            'timer',
+            'cancel ' + state.active.category,
+            'timer experiment',
+            1
+          ]
+        ]
+      }
+    })
   }
 }
 
 const mutations = {
-  START_ACTIVE(state, category) {
+  START_ACTIVE(state, { category }) {
     state.active.category = category
     state.active.start = Date.now()
     if (!state.timers[category]) state.timers[category] = 0
@@ -124,5 +160,5 @@ export default new Vuex.Store({
   getters,
   actions,
   mutations,
-  plugins: [localStoragePlugin]
+  plugins: [localStoragePlugin, analyticsMiddleware]
 })
