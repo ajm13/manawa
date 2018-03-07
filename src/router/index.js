@@ -1,10 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/Login'
 import Timers from '@/components/Timers'
-import TimersB from '@/components/TimersB'
 import Insights from '@/components/Insights'
 import Timeline from '@/components/Timeline'
 
@@ -15,11 +13,6 @@ Vue.use(Router)
 let router = new Router({
   routes: [
     {
-      path: '/hello',
-      name: 'HelloWorld',
-      component: HelloWorld
-    },
-    {
       path: '/login',
       name: 'Login',
       component: Login
@@ -28,11 +21,6 @@ let router = new Router({
       path: '/',
       name: 'Timers',
       component: Timers
-    },
-    {
-      path: '/timersB',
-      name: 'TimersB',
-      component: TimersB
     },
     {
       path: '/insights',

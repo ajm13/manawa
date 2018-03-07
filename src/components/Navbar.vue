@@ -2,9 +2,7 @@
   <nav>
     <ul>
       <router-link tag="li"
-        to="/">TimersA</router-link>
-      <router-link tag="li"
-        to="/timersB">TimersB</router-link>
+        to="/">Timers</router-link>
       <router-link tag="li"
         to="/insights">Insights</router-link>
       <router-link tag="li"
