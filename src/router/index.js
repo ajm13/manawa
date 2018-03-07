@@ -46,6 +46,7 @@ let router = new Router({
     }
   ]
 })
+ga(router, 'UA-115307274-1')
 
 router.beforeEach((to, from, next) => {
   if (to.name === 'Login') next()
