@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import ga from 'vue-ga'
 
 import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/Login'
@@ -47,7 +46,6 @@ let router = new Router({
     }
   ]
 })
-ga(router, 'UA-115307274-1')
 
 router.beforeEach((to, from, next) => {
   if (to.name === 'Login') next()
