@@ -1,14 +1,23 @@
 import router from '../router'
 
-export default {
-  user: {
+let STORAGE_KEY = 'manawa-auth'
+
+let user = sessionStorage.getItem(STORAGE_KEY)
+if (user !== null) user = JSON.parse(user)
+else {
+  user = {
     username: '',
     authenticated: false
-  },
+  }
+}
+
+export default {
+  user,
 
   login(data, redirect) {
     this.user.username = data.username
     this.user.authenticated = true
+    sessionStorage.setItem(STORAGE_KEY, JSON.stringify(this.user))
     router.push(redirect)
   },
 

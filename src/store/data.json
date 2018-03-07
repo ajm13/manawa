@@ -27,8 +27,6 @@
     "nothing": "hsl(0, 80%, 60%)"
   },
   "timers": {},
-  "goals": {
-    "sleep": [8, 8, 8, 8, 8, 8, 8]
-  },
-  "timeline": {}
+  "timeline": {},
+  "lastModified": 0
 }

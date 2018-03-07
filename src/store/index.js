@@ -73,6 +73,13 @@ const getters = {
 }
 
 const actions = {
+  checkDayReset({ state, commit }) {
+    let last = new Date(state.lastModified)
+    let now = new Date()
+    if (last.toDateString() !== now.toDateString()) {
+      commit('RESET_TIMERS')
+    }
+  },
   toggleTimer({ state, commit }, category) {
     let newTimer = state.active.category !== category
     if (state.active.category) {
@@ -146,6 +153,36 @@ const mutations = {
   },
   CANCEL_ACTIVE(state) {
     state.active.category = ''
+  },
+  RESET_TIMERS(state) {
+    if (state.active.category) {
+      let aday = new Date(state.active.start).toDateString()
+      let today = new Date().toDateString()
+      let EOD = new Date(new Date(state.active.start + DAY).toDateString())
+
+      if (!state.timeline[aday]) state.timeline[aday] = []
+
+      state.timeline[aday].push({
+        category: state.active.category,
+        start: state.active.start,
+        end: EOD - 1
+      })
+
+      state.active.start = EOD
+
+      if (EOD.toDateString() !== today) {
+        state.active.category = ''
+      }
+    }
+
+    state.timers = {}
+
+    if (state.active.category) {
+      state.timers[state.active.category] = 0
+    }
+  },
+  UPDATE_LAST_MODIFIED(state) {
+    state.lastModified = Date.now()
   }
 }
 
@@ -155,10 +192,18 @@ const localStoragePlugin = store => {
   })
 }
 
+const lastModifiedPlugin = store => {
+  store.subscribe(({ type }) => {
+    if (type !== 'UPDATE_LAST_MODIFIED') {
+      store.commit('UPDATE_LAST_MODIFIED')
+    }
+  })
+}
+
 export default new Vuex.Store({
   state,
   getters,
   actions,
   mutations,
-  plugins: [localStoragePlugin, analyticsMiddleware]
+  plugins: [localStoragePlugin, lastModifiedPlugin, analyticsMiddleware]
 })

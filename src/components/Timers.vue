@@ -62,11 +62,11 @@ export default {
   },
 
   methods: {
-    ...mapActions(['cancelActive', 'toggleTimer']),
+    ...mapActions(['cancelActive', 'toggleTimer', 'checkDayReset']),
     cancelTimer() {
       if (!this.confirm) {
         this.confirm = true
-        setTimeout(() => (this.confirm = false), 2000)
+        setTimeout(() => (this.confirm = false), 3000)
       } else {
         this.cancelActive()
         this.confirm = false

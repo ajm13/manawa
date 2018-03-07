@@ -10,7 +10,7 @@
           <li v-if="day.events.length == 0">no activities logged</li>
           <li class="event"
             v-for="event of day.events"
-            :key="event.category">
+            :key="event.category + event.end">
             <div class="times">
               <div>{{ event.start | clock }}</div>
               <div>{{ event.end | clock }}</div>
@@ -19,7 +19,7 @@
               :style="{
                 borderColor: colors[event.category]
               }">{{ event.category }}</div>
-            <div class="time">{{ (event.end - event.start) / 60 | time }}</div>
+            <div class="time">{{ (event.end - event.start) | time }}</div>
           </li>
         </ul>
       </li>
@@ -38,9 +38,7 @@ export default {
     }
   },
 
-  computed: {
-    ...mapGetters(['colors', 'getTimelineWeek'])
-  },
+  computed: mapGetters(['colors', 'getTimelineWeek']),
 
   methods: {
     loadMore() {
