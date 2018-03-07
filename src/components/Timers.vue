@@ -23,7 +23,15 @@
       </div>
     </div>
     <div class="row center">
-      <div id="cancel"
+      <div id="cancelA"
+        v-if="!alt"
+        v-show="active.category"
+        @click="cancelTimer"
+        :class="{ confirm }">
+        {{ !confirm ? 'cancel timer' : 'tap again to confirm' }}
+      </div>
+      <div id="cancelB"
+        v-if="alt"
         v-show="active.category"
         @click="cancelTimer"
         :class="{ confirm }">
@@ -44,7 +52,8 @@ export default {
       confirm: false,
       date: this.getDate(),
       currentTime: 0,
-      updateInterval: 0
+      updateInterval: 0,
+      alt: !!this.$route.meta.alt
     }
   },
 
@@ -135,7 +144,7 @@ export default {
         border-radius: 50%
         transition: all 300ms ease
 
-  #cancel
+  #cancelA
     display: inline-block
     padding: 0.5em 1em
     margin: 0 auto
@@ -149,5 +158,21 @@ export default {
     &.confirm
       background: hsl(0, 80%, 60%)
       color: #fff
+      opacity: 1
+
+  #cancelB
+    display: inline-block
+    padding: 0.5em 1em
+    margin: 0 auto
+    border: 2px solid hsl(0, 80%, 60%)
+    background: hsl(0, 80%, 60%)
+    color: #fff
+    opacity: 1
+    border-radius: 1em
+    transition: all 300ms ease
+
+    &.confirm
+      background: #fff
+      color: hsl(0, 80%, 60%)
       opacity: 1
 </style>

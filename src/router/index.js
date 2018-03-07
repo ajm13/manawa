@@ -4,7 +4,6 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/Login'
 import Timers from '@/components/Timers'
-import TimersB from '@/components/TimersB'
 import Insights from '@/components/Insights'
 import Timeline from '@/components/Timeline'
 
@@ -30,9 +29,10 @@ let router = new Router({
       component: Timers
     },
     {
-      path: '/timersB',
-      name: 'TimersB',
-      component: TimersB
+      path: '/alt',
+      name: 'TimersAlt',
+      component: Timers,
+      meta: { alt: true }
     },
     {
       path: '/insights',

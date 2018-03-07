@@ -1,10 +1,12 @@
 <template>
   <nav>
     <ul>
-      <router-link tag="li"
-        to="/">TimersA</router-link>
-      <router-link tag="li"
-        to="/timersB">TimersB</router-link>
+      <router-link v-if="!alt"
+        tag="li"
+        to="/">Timers</router-link>
+      <router-link v-if="alt"
+        tag="li"
+        to="/alt">Timers</router-link>
       <router-link tag="li"
         to="/insights">Insights</router-link>
       <router-link tag="li"
@@ -14,7 +16,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      alt: !!this.$route.meta.alt
+    }
+  }
+}
 </script>
 
 <style lang="sass">
