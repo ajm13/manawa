@@ -23,6 +23,7 @@ export default {
 
   logout() {
     this.user.authenticated = false
+    sessionStorage.removeItem(STORAGE_KEY)
     router.push('/login')
   }
 }
