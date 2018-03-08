@@ -62,7 +62,7 @@ export default {
       currentRange: 'day',
       startDate: new Date(new Date().toDateString()),
       numDays: 1,
-      ranges: ['day', 'week', 'month', 'year'],
+      ranges: ['today', 'day', 'week', 'month', 'year'],
       circleText: '',
       rangeText: '',
       selected: null
@@ -116,6 +116,7 @@ export default {
     },
     moveStartDate(dir) {
       this.startDate = new Date(+this.startDate + dir * this.numDays * DAY)
+      if (this.currentRange === 'today') this.currentRange = 'day'
       this.selectRange(this.currentRange)
     },
     selectRange(range) {
@@ -129,6 +130,9 @@ export default {
       this.currentRange = range
 
       switch (range) {
+        case 'today':
+          this.startDate = new Date(new Date().toDateString())
+        // eslint-disable-next-line
         case 'day':
           this.numDays = 1
           break
@@ -159,6 +163,8 @@ export default {
       let [, emonth, edate, eyear] = end.toDateString().split(' ')
 
       switch (this.currentRange) {
+        // eslint-disable-next-line
+        case 'today':
         case 'day':
           this.rangeText = `${day}<br>${month} ${date}<br>${year}`
           break
