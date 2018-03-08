@@ -23,6 +23,7 @@
           :stroke="time.color"></path>
       </svg>
       <div id="centerText"
+        @click="deselectCategory"
         v-html="circleText"></div>
       <div id="next"
         class="chevron"

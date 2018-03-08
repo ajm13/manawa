@@ -12,22 +12,27 @@ let categories = [
   'extracurriculars'
 ]
 
-let d = new Date(2014, 0)
+let d = new Date(new Date(2014, 0).toDateString())
 let end = new Date(new Date().toDateString())
 
 let timeline = {}
 
 while (d < end) {
   let events = []
-  left = 8.64e7 - 3.6e6
-  let i = 0
+  left = 8.64e7
 
-  while (left > 3.6e6 && i < categories.length) {
-    let end = Math.floor(Math.random() * 8 * 3.6e6)
-    end = Math.max(3.6e6, end)
-    end = Math.min(left, end)
-    left -= end
-    events.push({ category: categories[i++], start: 0, end })
+  let start = +d
+  while (left > 0) {
+    let i = Math.floor(Math.random() * categories.length)
+    if (start === +d) i = 0
+    let len = Math.min(Math.floor(Math.random() * 6 * 3.6e6), left)
+    let end = start + len
+
+    events.push({ category: categories[i], start, end })
+
+    let nothing = Math.min(left, Math.floor(Math.random() * 3.6e6 * 0.25))
+    start = end + nothing
+    left -= len + nothing
   }
 
   timeline[d.toDateString()] = events

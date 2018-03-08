@@ -42,7 +42,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 import { mapGetters, mapActions } from 'vuex'
 import auth from '@/auth'
 

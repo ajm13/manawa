@@ -4,7 +4,9 @@ import data from './data.json'
 import { timeline } from './timeline.json'
 import { analyticsMiddleware } from 'vue-analytics'
 
+const VERSION = '0.0.1'
 const STORAGE_KEY = 'manawa'
+const VERSION_KEY = 'manawa-v'
 const DAY = 24 * 60 * 60 * 1000
 
 Vue.use(Vuex)
@@ -13,11 +15,16 @@ Vue.use(Vuex)
 // localStorage.removeItem(STORAGE_KEY)
 
 // get data from localStorage
-let saved = window.localStorage.getItem(STORAGE_KEY)
-if (saved !== null) saved = JSON.parse(saved)
-else {
-  saved = data
+let version = localStorage.getItem(VERSION_KEY)
+let saved = localStorage.getItem(STORAGE_KEY)
+
+if (version === VERSION && saved !== null) {
+  saved = JSON.parse(saved)
+} else {
   data.timeline = timeline
+  saved = data
+  localStorage.setItem(VERSION_KEY, VERSION)
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(saved))
 }
 
 const state = saved
