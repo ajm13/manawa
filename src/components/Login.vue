@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <div id="logo">
-      <img src="../assets/manawa-logo2.png">
+      <img src="../assets/manawa-logo4.png">
     </div>
     <div id="welcome">
       welcome to manawa
@@ -64,10 +64,9 @@ export default {
     input, button
       width: 100%
       margin-bottom: 0.5em
-      border: 2px solid hsl(277, 100%, 50%)
-      border-radius: 1em
+      border: 2px solid hsl(36, 100%, 50%)
     button
       color: white
-      background: hsl(277, 100%, 50%)
+      background: hsl(36, 100%, 50%)
       transition: all 300ms ease
 </style>
