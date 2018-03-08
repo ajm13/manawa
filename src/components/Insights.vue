@@ -26,6 +26,7 @@
         v-html="circleText"></div>
       <div id="next"
         class="chevron"
+        v-show="canIncreaseStartDate"
         @click="moveStartDate(1)">
         <div>&gt;</div>
       </div>
@@ -95,6 +96,9 @@ export default {
         o += 0.0125
         return { category, color, time, a, o }
       })
+    },
+    canIncreaseStartDate() {
+      return new Date(+this.startDate + this.numDays * DAY) < new Date()
     }
   },
   methods: {
