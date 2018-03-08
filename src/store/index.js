@@ -67,13 +67,13 @@ const getters = {
       times.push({ category: key, time: categories[key] })
     }
 
-    if (days !== 1 || start.toDateString() !== now.toDateString()) {
-      times.push({ category: 'nothing', time: days * DAY - total })
-      total = days * DAY
-    } else {
+    if (start.toDateString() === now.toDateString() && days === 1) {
       let todaytime = now - new Date(now.toDateString())
       times.push({ category: 'nothing', time: todaytime })
       total = todaytime
+    } else {
+      times.push({ category: 'nothing', time: days * DAY - total })
+      total = days * DAY
     }
 
     return { total, times }
