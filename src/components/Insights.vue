@@ -59,7 +59,7 @@ export default {
   data() {
     return {
       username: auth.user.username,
-      currentRange: 'day',
+      currentRange: 'today',
       startDate: new Date(new Date().toDateString()),
       numDays: 1,
       ranges: ['today', 'day', 'week', 'month', 'year'],
@@ -115,8 +115,25 @@ export default {
       console.log(a)
     },
     moveStartDate(dir) {
-      this.startDate = new Date(+this.startDate + dir * this.numDays * DAY)
       if (this.currentRange === 'today') this.currentRange = 'day'
+
+      let d = this.startDate
+      switch (this.currentRange) {
+        case 'day':
+          d.setDate(d.getDate() + dir)
+          break
+        case 'week':
+          d.setDate(d.getDate() + 7 * dir)
+          break
+        case 'month':
+          d.setMonth(d.getMonth() + dir)
+          break
+        case 'year':
+          d.setYear(d.getYear() + dir)
+          break
+      }
+
+      this.startDate = new Date(d)
       this.selectRange(this.currentRange)
     },
     selectRange(range) {
@@ -144,13 +161,13 @@ export default {
           start = new Date(y, m)
           end = new Date(y, m + 1)
           this.startDate = new Date(y, m)
-          this.numDays = (end - start) / DAY
+          this.numDays = Math.round((end - start) / DAY)
           break
         case 'year':
           start = new Date(y, 0)
           end = new Date(y + 1, 0)
           this.startDate = new Date(y, 0)
-          this.numDays = (end - start) / DAY
+          this.numDays = Math.round((end - start) / DAY)
           break
       }
 
@@ -180,7 +197,7 @@ export default {
       }
     },
     selectCategory(time) {
-      let t = this.$options.filters.time(time.time / 60)
+      let t = this.$options.filters.time(time.time)
       this.selected = time
       this.circleText = `${time.category}<br>${t}`
     },

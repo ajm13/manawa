@@ -53,20 +53,20 @@ export default {
       date: this.getDate(),
       currentTime: 0,
       updateInterval: 0,
+      cancelTimeout: 0,
       alt: !!this.$route.meta.alt
     }
   },
 
-  computed: {
-    ...mapGetters(['active', 'categories', 'colors', 'timers'])
-  },
+  computed: mapGetters(['active', 'categories', 'colors', 'timers']),
 
   methods: {
     ...mapActions(['cancelActive', 'toggleTimer', 'checkDayReset']),
     cancelTimer() {
+      clearTimeout(this.cancelTimeout)
       if (!this.confirm) {
         this.confirm = true
-        setTimeout(() => (this.confirm = false), 3000)
+        this.cancelTimeout = setTimeout(() => (this.confirm = false), 3000)
       } else {
         this.cancelActive()
         this.confirm = false
@@ -136,10 +136,12 @@ export default {
         opacity: 0.5
 
       .circle
-        display: inline-block
+        display: inline-flex
+        justify-content: center
+        align-items: center
+        color: #888
         width: 5em
         height: 5em
-        line-height: 5em
         border: 2px solid #999
         border-radius: 50%
         transition: all 300ms ease

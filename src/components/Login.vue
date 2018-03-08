@@ -7,7 +7,7 @@
       welcome to manawa
     </div>
     <div id="about">
-      a time-tracking app that will change your life
+      a time-tracking app<br>that will change your life
     </div>
     <br>
     <form id="inputs"
@@ -65,8 +65,12 @@ export default {
       width: 100%
       margin-bottom: 0.5em
       border: 2px solid hsl(36, 100%, 50%)
+
     button
       color: white
       background: hsl(36, 100%, 50%)
       transition: all 300ms ease
+
+      &:disabled
+        opacity: 0.5
 </style>

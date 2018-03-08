@@ -18,7 +18,7 @@
             <div class="category"
               :style="{
                 borderColor: colors[event.category],
-                height: (event.end - event.start) / 3.6e5 + 'px'
+                height: Math.max(3, (event.end - event.start) / 3.6e5) + 'px'
               }">{{ event.category }}</div>
             <div class="time">{{ (event.end - event.start) | time }}</div>
           </li>

@@ -79,8 +79,9 @@ const getters = {
       times.push({ category: 'nothing', time: todaytime })
       total = todaytime
     } else {
-      times.push({ category: 'nothing', time: days * DAY - total })
-      total = days * DAY
+      let left = total
+      total = days * DAY - Math.max(0, end - new Date())
+      times.push({ category: 'nothing', time: total - left })
     }
 
     return { total, times }
