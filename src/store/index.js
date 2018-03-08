@@ -45,6 +45,7 @@ const getters = {
     return chunk
   },
   getTimes: state => ({ start, days }) => {
+    let now = new Date()
     let d = new Date(start)
     let end = new Date(+d + days * DAY)
     let categories = {}
@@ -66,8 +67,15 @@ const getters = {
       times.push({ category: key, time: categories[key] })
     }
 
-    times.push({ category: 'nothing', time: days * DAY - total })
-    total = days * DAY
+    if (days !== 1 || start.toDateString() !== now.toDateString()) {
+      times.push({ category: 'nothing', time: days * DAY - total })
+      total = days * DAY
+    } else {
+      let todaytime = now - new Date(now.toDateString())
+      times.push({ category: 'nothing', time: todaytime })
+      total = todaytime
+    }
+
     return { total, times }
   }
 }
@@ -81,18 +89,13 @@ const actions = {
     }
   },
   toggleTimer({ state, commit }, category) {
-    let newTimer = state.active.category !== category
-    if (state.active.category) {
+    let active = state.active.category
+    let newTimer = active !== category
+    if (active) {
       commit('STOP_ACTIVE', {
         meta: {
           analytics: [
-            [
-              'event',
-              'timer',
-              'stop ' + state.active.category,
-              'timer experiment',
-              1
-            ]
+            ['event', 'timer', 'stop ' + active, 'timer experiment', 1]
           ]
         }
       })
@@ -109,16 +112,11 @@ const actions = {
     }
   },
   cancelActive({ state, commit }) {
+    let active = state.active.category
     commit('CANCEL_ACTIVE', {
       meta: {
         analytics: [
-          [
-            'event',
-            'timer',
-            'cancel ' + state.active.category,
-            'timer experiment',
-            1
-          ]
+          ['event', 'timer', 'cancel ' + active, 'timer experiment', 1]
         ]
       }
     })

@@ -70,7 +70,7 @@ export default {
     ...mapGetters(['colors', 'getTimes']),
     nothing() {
       let nothing = this.times[this.times.length - 1]
-      if (nothing.category !== 'nothing') return 0
+      if (!nothing || nothing.category !== 'nothing') return 0
       else return (nothing.time / 3.6e6).toFixed(1)
     },
     times() {
