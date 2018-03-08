@@ -4,7 +4,7 @@ import data from './data.json'
 import { timeline } from './timeline.json'
 import { analyticsMiddleware } from 'vue-analytics'
 
-const VERSION = '0.0.1'
+const VERSION = '0.0.2'
 const STORAGE_KEY = 'manawa'
 const VERSION_KEY = 'manawa-v'
 const DAY = 24 * 60 * 60 * 1000

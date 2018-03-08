@@ -17,7 +17,8 @@
             </div>
             <div class="category"
               :style="{
-                borderColor: colors[event.category]
+                borderColor: colors[event.category],
+                height: (event.end - event.start) / 3.6e5 + 'px'
               }">{{ event.category }}</div>
             <div class="time">{{ (event.end - event.start) | time }}</div>
           </li>
@@ -86,19 +87,20 @@ export default {
     display: flex
     flex-flow: row nowrap
     align-items: center
-    padding: 0.1em 2em
+    padding: 0.2em 2em
 
     .times
       display: flex
       flex-flow: column nowrap
       font-size: 0.6em
+      text-align: right
+      width: 3em
 
     .category
-      border-left: 2px solid #000
+      display: flex
+      align-items: center
+      border-left: 3px solid #000
       margin-left: 0.8em
       padding-left: 0.8em
-
-    .time
-      position: absolute
-      right: 2em
+      flex: 1
 </style>

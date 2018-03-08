@@ -19,7 +19,7 @@ let timeline = {}
 
 while (d < end) {
   let events = []
-  left = 8.64e7
+  left = 8.64e7 - 1
 
   let start = +d
   while (left > 0) {
