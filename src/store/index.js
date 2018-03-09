@@ -7,7 +7,6 @@ import { analyticsMiddleware } from 'vue-analytics'
 const VERSION = '0.0.2'
 const STORAGE_KEY = 'manawa'
 const VERSION_KEY = 'manawa-v'
-const DAY = 24 * 60 * 60 * 1000
 
 Vue.use(Vuex)
 
@@ -36,9 +35,11 @@ const getters = {
   timers: state => state.timers,
   getTimelineWeek: state => end => {
     end = new Date(end)
-    let d = new Date(+end - 6 * DAY)
+    let d = new Date(end)
+    d.setDate(d.getDate() - 6)
     let chunk = []
 
+    // eslint-disable-next-line
     while (d < end) {
       let date = d.toDateString()
       chunk.push({
@@ -46,7 +47,7 @@ const getters = {
         events: state.timeline[date] || []
       })
 
-      d = new Date(+d + DAY)
+      d.setDate(d.getDate() + 1)
     }
 
     return chunk
@@ -54,10 +55,13 @@ const getters = {
   getTimes: state => ({ start, days }) => {
     let now = new Date()
     let d = new Date(start)
-    let end = new Date(+d + days * DAY)
+    let end = new Date(d)
+    end.setDate(d.getDate() + days)
+    let rangeTime = end - d
     let categories = {}
     let total = 0
 
+    // eslint-disable-next-line
     while (d < end) {
       let events = state.timeline[d.toDateString()] || []
       for (let event of events) {
@@ -66,7 +70,7 @@ const getters = {
         categories[event.category] += time
         total += time
       }
-      d = new Date(+d + DAY)
+      d.setDate(d.getDate() + 1)
     }
 
     let times = []
@@ -76,11 +80,11 @@ const getters = {
 
     if (start.toDateString() === now.toDateString() && days === 1) {
       let todaytime = now - new Date(now.toDateString())
-      times.push({ category: 'nothing', time: todaytime })
+      times.push({ category: 'nothing', time: todaytime - total })
       total = todaytime
     } else {
       let left = total
-      total = days * DAY - Math.max(0, end - new Date())
+      total = rangeTime - Math.max(0, end - new Date())
       times.push({ category: 'nothing', time: total - left })
     }
 
@@ -164,7 +168,8 @@ const mutations = {
     if (state.active.category) {
       let aday = new Date(state.active.start).toDateString()
       let today = new Date().toDateString()
-      let EOD = new Date(new Date(state.active.start + DAY).toDateString())
+      let EOD = new Date(state.active.start.toDateString())
+      EOD.setDate(EOD.getDate() + 1)
 
       if (!state.timeline[aday]) state.timeline[aday] = []
 

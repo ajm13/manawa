@@ -99,7 +99,9 @@ export default {
       })
     },
     canIncreaseStartDate() {
-      return new Date(+this.startDate + this.numDays * DAY) < new Date()
+      let nextDate = new Date(this.startDate)
+      nextDate.setDate(nextDate.getDate() + this.numDays)
+      return nextDate < new Date()
     }
   },
   methods: {
@@ -176,7 +178,8 @@ export default {
     },
     setRangeText() {
       let [day, month, date, year] = this.startDate.toDateString().split(' ')
-      let end = new Date(+this.startDate + 6 * DAY)
+      let end = new Date(this.startDate)
+      end.setDate(end.getDate() + 6)
       let [, emonth, edate, eyear] = end.toDateString().split(' ')
 
       switch (this.currentRange) {

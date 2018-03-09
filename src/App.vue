@@ -13,8 +13,6 @@ import Navbar from './components/Navbar'
 import auth from '@/auth'
 import { mapActions } from 'vuex'
 
-const DAY = 8.64e7
-
 export default {
   components: { Navbar },
   name: 'App',
@@ -36,7 +34,9 @@ export default {
       if (!document.hidden) this.checkDayReset()
     })
 
-    let tomorrow = new Date(new Date(+new Date() + DAY).toDateString())
+    this.checkDayReset()
+    let tomorrow = new Date(new Date().toDateString())
+    tomorrow.setDate(tomorrow.getDate() + 1)
     setTimeout(() => this.checkDayReset(), tomorrow - new Date())
   }
 }
