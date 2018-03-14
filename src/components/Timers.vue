@@ -1,7 +1,9 @@
 <template>
   <div id="home">
     <div id="date">{{ date }}</div>
-    <div id="tips">tap a timer to start logging time</div>
+    <div id="tips">
+      {{ !active.category ? 'tap a timer to start logging time' : 'tap again to stop timer' }}
+    </div>
     <div id="tracking">
       <div v-for="category in categories"
         :key="category"
@@ -23,15 +25,7 @@
       </div>
     </div>
     <div class="row center">
-      <div id="cancelA"
-        v-if="!alt"
-        v-show="active.category"
-        @click="cancelTimer"
-        :class="{ confirm }">
-        {{ !confirm ? 'cancel timer' : 'tap again to confirm' }}
-      </div>
-      <div id="cancelB"
-        v-if="alt"
+      <div id="cancel"
         v-show="active.category"
         @click="cancelTimer"
         :class="{ confirm }">
@@ -53,8 +47,7 @@ export default {
       date: this.getDate(),
       currentTime: 0,
       updateInterval: 0,
-      cancelTimeout: 0,
-      alt: !!this.$route.meta.alt
+      cancelTimeout: 0
     }
   },
 
@@ -106,7 +99,8 @@ export default {
 
 #home
   #date
-    font-size: 1.5rem
+    font-size: 2.5rem
+    line-height: 1em
 
   #tips
     color: #888
@@ -146,7 +140,7 @@ export default {
         border-radius: 50%
         transition: all 300ms ease
 
-  #cancelA
+  #cancel
     display: inline-block
     padding: 0.5em 1em
     margin: 0 auto
@@ -160,21 +154,5 @@ export default {
     &.confirm
       background: hsl(0, 80%, 60%)
       color: #fff
-      opacity: 1
-
-  #cancelB
-    display: inline-block
-    padding: 0.5em 1em
-    margin: 0 auto
-    border: 2px solid hsl(0, 80%, 60%)
-    background: hsl(0, 80%, 60%)
-    color: #fff
-    opacity: 1
-    border-radius: 1em
-    transition: all 300ms ease
-
-    &.confirm
-      background: #fff
-      color: hsl(0, 80%, 60%)
       opacity: 1
 </style>

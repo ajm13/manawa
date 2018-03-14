@@ -47,5 +47,6 @@ nav
       border-right: 1px solid #999
 
     &.router-link-exact-active
-      background-color: #ddd
+      background-color: #ff9901
+      color: #fff
 </style>

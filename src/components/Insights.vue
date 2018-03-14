@@ -233,7 +233,8 @@ export default {
       padding: 0.5em
 
       &.active
-        background-color: #ddd
+        background-color: #ff9901
+        color: #fff
 
   .donutBox
     position: relative
