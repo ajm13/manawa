@@ -33,7 +33,7 @@
       </div>
     </div>
     <div id="recommendation">
-      Hi {{ username }}, you have {{ nothing }} hours of unaccounted time.<br>You could've used that time to study for your midterms!
+      Hi {{ username }}. {{ insight }}
     </div>
     <div id="legend">
       <div v-for="d in times"
@@ -49,6 +49,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import insights from '@/store/insights.json'
 import auth from '@/auth'
 
 const { sin, cos, PI } = Math
@@ -65,6 +66,7 @@ export default {
       ranges: ['today', 'day', 'week', 'month', 'year'],
       circleText: '',
       rangeText: '',
+      insight: "you're awesome!",
       selected: null
     }
   },
@@ -73,7 +75,7 @@ export default {
     nothing() {
       let nothing = this.times[this.times.length - 1]
       if (!nothing || nothing.category !== 'nothing') return 0
-      else return (nothing.time / 3.6e6).toFixed(1)
+      else return nothing.time
     },
     times() {
       let data = this.getTimes({
@@ -113,9 +115,6 @@ export default {
       let la = a < PI ? 0 : 1
       return `M ${sx} ${sy} A ${r} ${r} 0 ${la} 1 ${ex} ${ey}`
     },
-    log(a) {
-      console.log(a)
-    },
     moveStartDate(dir) {
       if (this.currentRange === 'today') this.currentRange = 'day'
 
@@ -137,6 +136,7 @@ export default {
 
       this.startDate = new Date(d)
       this.selectRange(this.currentRange)
+      this.deselectCategory()
     },
     selectRange(range) {
       let date = this.startDate
@@ -199,18 +199,31 @@ export default {
           break
       }
     },
+    setInsight(category, time) {
+      time = Math.floor(time / 6e4)
+      let m = time % 60
+      let h = Math.floor(time / 60)
+      time = `${h} hr ${m} min`
+
+      let options = insights[category]
+      let i = Math.floor(Math.random() * options.length)
+      this.insight = options[i].replace('{{time}}', time)
+    },
     selectCategory(time) {
       let t = this.$options.filters.time(time.time)
       this.selected = time
       this.circleText = `${time.category}<br>${t}`
+      this.setInsight(time.category, time.time)
     },
     deselectCategory() {
       this.selected = null
       this.circleText = this.rangeText
+      this.setInsight('nothing', this.nothing)
     }
   },
   mounted() {
     this.setRangeText()
+    this.deselectCategory()
     this.circleText = this.rangeText
   }
 }

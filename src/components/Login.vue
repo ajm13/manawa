@@ -1,7 +1,7 @@
 <template>
   <div id="login">
     <div id="logo">
-      <img src="../assets/manawa-512.png">
+      <img src="/static/manawa-512.png">
     </div>
     <div id="welcome">
       welcome to manawa

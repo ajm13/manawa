@@ -1,38 +1,38 @@
 {
   "sleep": [
-    "The average person needs 7-9 hours of sleep. You only got {{ sleep }} hours today. Do you want to set a sleep goal?"
+    "The average person needs 7-9 hours of sleep. You only got {{time}}."
   ],
   "eat": [
-    "You spent {{ eat }} hours eating today. That's a lot! Maybe you should eat a little faster so you can get more work done.",
-    "You only spent {{ eat }} hours eating today. Are you sure you're eating enough? Don't forget to eat 3 meals a day, and snack in between!"
+    "You spent {{time}} eating. That's a lot! Maybe you should eat a little faster so you can get more work done.",
+    "You only spent {{time}} eating. Are you sure you're eating enough? Don't forget to eat 3 meals a day, and snack in between!"
   ],
   "work": [
-    "You worked {{ work }} hours today. That's a lot more than the typical 8-hour work day! Make sure to have a healthy work-life balance!",
-    "You only got in {{ work }} hours of work today. If you want to make it to Germany, you need to work more!"
+    "You worked {{time}}. That's a lot more than the typical 8-hour work day! Make sure to have a healthy work-life balance!",
+    "You only got in {{time}} of work. If you want to make it to Germany, you need to work more!"
   ],
-  "class": ["You spent {{ class }} hours in class today. What did you learn?"],
+  "class": ["You spent {{time}} in class. What did you learn?"],
   "study": [
-    "You have a midterm coming up, but you only studied {{ study }} hours today. Make sure to allocate more time to study tomorrow!",
-    "Wow, you studied {{ study }} hours today! You should probably take a break!"
+    "You have a midterm coming up, but you only studied {{time}}. Make sure to allocate more time to study tomorrow!",
+    "Wow, you studied {{time}}! You should probably take a break!"
   ],
   "exercise": [
-    "You've only exercised {{ exercise }} hours this week! Adults should do at least 2.5 hours of physical activity per week!",
-    "Wow, you spent {{ exercise }} hours exercising today! That's great! Keep up the good work!"
+    "You've only exercised {{time}}! Adults should do at least 2.5 hours of physical activity per week!",
+    "Wow, you spent {{time}} exercising! That's great! Keep up the good work!"
   ],
   "travel": [
-    "You spent {{ travel }} hours in travel time today. Is there any way you can reduce the amount of time spetn on your commute?"
+    "You spent {{time}} in travel time. Is there any way you can reduce the amount of time spent on your commute?"
   ],
   "extracurriculars": [
-    "You spent {{ extracurriculars }} hours on extracurriculars today. Extra activities look good on your resume. Keep up the good work!"
+    "You spent {{time}} on extracurriculars. Extra activities look good on your resume. Keep up the good work!"
   ],
   "fun": [
-    "You spent {{ fun }} hours having fun today! You must feel very happy!",
-    "You spent {{ fun }} hours having fun today! A healthy dose of fun will help keep your overall well-being higher.",
-    "You spent {{ fun }} hours having fun today! That's a lot of time, maybe you should have spent some of that time to catch up on sleep!"
+    "You spent {{time}} having fun! You must feel very happy!",
+    "You spent {{time}} having fun! A healthy dose of fun will help keep your overall well-being higher.",
+    "You spent {{time}} having fun! That's a lot of time, maybe you should have spent some of that time to catch up on sleep!"
   ],
   "nothing": [
-    "You had {{ nothing }} hours of unaccounted time today. You could've used that time to exercise or sleep more!",
-    "You have {{ nothing }} hours of time left today. Make sure you use it wisely!",
-    "You had {{ nothing }} hours of unaccounted time today. That's much less than the average person. Congrats, you had a very productive day!"
+    "You had {{time}} of unaccounted time. You could've used that time to exercise or sleep more!",
+    "You have {{time}} of time left. Make sure you use it wisely!",
+    "You had {{time}} of unaccounted time. That's much less than the average person. Congrats, you had a very productive day!"
   ]
 }
