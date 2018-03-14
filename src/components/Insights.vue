@@ -131,7 +131,7 @@ export default {
           d.setMonth(d.getMonth() + dir)
           break
         case 'year':
-          d.setYear(d.getYear() + dir)
+          d.setYear(d.getYear() + 1900 + dir)
           break
       }
 
