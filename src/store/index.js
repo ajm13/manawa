@@ -168,7 +168,7 @@ const mutations = {
     if (state.active.category) {
       let aday = new Date(state.active.start).toDateString()
       let today = new Date().toDateString()
-      let EOD = new Date(state.active.start.toDateString())
+      let EOD = new Date(aday)
       EOD.setDate(EOD.getDate() + 1)
 
       if (!state.timeline[aday]) state.timeline[aday] = []
